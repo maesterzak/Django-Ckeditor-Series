@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/devibeans.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    
+    <script type="text/javascript">
+        function getToken(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken');
+    
+      </script>
+      <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"></script>
+      <script src="{% static 'main.js' %}"></script>
+      
+</head>
+<body>
+    <style>
+        .img{
+            width: 20px;
+            height: 20px;
+        }
+        .post{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5%;
+            
+        }
+        .card{
+            border: 2px solid black;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            padding: 10px;
+
+        }
+        h2, h1{
+            text-align: center;
+        }
+        .blog-form{
+            display: grid;
+            justify-content: center;
+        }
+
+        .pre-wrapper{
+	position:relative;
+}
+.pre-wrapper pre{
+	padding-top: 25px;
+}
+.pre-wrapper .copy-snippet {
+	border-radius: 0;
+	min-width:55px;
+	background: none repeat scroll 0 0 transparent;
+	border: 1px solid #bbb;
+	color: #26589F;
+	font-family: 'HELEVETICA',sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1.42rem;
+	margin: 0;
+	padding: 0px 5px;
+	text-align: center;
+	text-decoration: none;
+	text-indent: 0;
+	position:absolute;
+	background:#ccc;
+	top:30px;
+	right:20px;
+}
+.pre-wrapper .copy-snippet:disabled{
+	color:#555;
+}
+
+ 
+    </style>
+    <h1>DJANGO CKEDITOR</h1>
+    <section class="post">
+        {% for item in data %}
+        <div class="card">
+            <h1>{{item.name}}</h1>
+            <p>{{item.body|safe}}</p>
+        </div>
+
+        {% endfor %}
+
+    </section>
+
+    <section class="blog-form">
+        <h2>Blog Form</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+
+            <button type="submit">Submit</button>
+
+        </form>
+    </section>
+    
+</body>
+</html>
